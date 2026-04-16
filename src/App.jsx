@@ -6,6 +6,7 @@ import Hero from "./components/Hero";
 import AboutSection from "./components/AboutSection";
 import ExpertiseSection from "./components/ExpertiseSection";
 import WorkSection from "./components/WorkSection";
+import BrandsSection from "./components/BrandsSection";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ function App() {
       <AboutSection />
       <ExpertiseSection />
       <WorkSection />
+      <BrandsSection />
     </Layout>
   );
 }
