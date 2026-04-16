@@ -1,4 +1,5 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useState } from "react";
 
 const defaultImage1 =
   "https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=800&auto=format&fit=crop"; // Car/lifestyle replacement
@@ -46,20 +47,65 @@ const Hero = () => {
     },
   };
 
-  const cardVars = {
-    hidden: { opacity: 0, scale: 0.8, y: 120 },
-    show: (custom) => ({
-      opacity: 1,
-      scale: 1,
-      y: custom.yOffset || 0,
-      rotate: custom.rotate,
+  const [hoverIndex, setHoverIndex] = useState(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
+  // Dynamic card animation generator
+  const getCardProps = (index, baseRotate, baseY, baseZ, defaultDelay) => {
+    const isHovered = hoverIndex === index;
+
+    let x = 0;
+    let y = baseY;
+    let rotate = baseRotate;
+    let scale = 1;
+    let zIndex = baseZ;
+
+    // Hover state over THIS card
+    if (isHovered) {
+      rotate = 0; // Turn perfectly straight as requested
+      scale = 1.05; // Slightly scaled to emphasize selection
+      zIndex = 60; // Pull to absolute front
+      y -= 25; // Pull out of the deck upwards
+
+      // Edge compensation: lean the leftmost and rightmost cards outward
+      // so the gap feels mathematically symmetrical.
+      if (index === 0) x = -40; // Push first card left
+      if (index === 3) x = 40;  // Push fourth card right
+    }
+
+    // "Part the sea" pushing logic that explicitly moves siblings left/right
+    if (hoverIndex !== null && !isHovered) {
+      if (index < hoverIndex) {
+        x = -80; // Hard push left for preceding cards
+      }
+      if (index > hoverIndex) {
+        x = 80; // Hard push right for succeeding cards
+      }
+      // Very slight drop for non-hovered to emphasize hovered
+      y += 10; 
+    }
+
+    return {
+      initial: { opacity: 0, scale: 0.8, y: baseY + 120 },
+      animate: {
+        opacity: 1,
+        scale,
+        y,
+        x,
+        rotate,
+        zIndex,
+      },
       transition: {
         type: "spring",
-        stiffness: 60,
+        stiffness: 80,
         damping: 15,
-        delay: custom.delay,
+        delay: hasInteracted ? 0 : defaultDelay,
       },
-    }),
+    };
+  };
+
+  const handleCardInteraction = () => {
+    if (!hasInteracted) setHasInteracted(true);
   };
 
   return (
@@ -109,19 +155,20 @@ const Hero = () => {
         style={{ x: containerX }}
         className="mt-12 lg:mt-20 flex flex-row justify-center items-center -space-x-6 md:-space-x-10 lg:-space-x-12 relative transition-all duration-300 h-auto md:h-[360px] lg:h-[520px] pb-8"
       >
-        {/* Card 1: Blue (Front-most) */}
+        {/* Card 0: Blue (Front-most) */}
         <motion.div
-          custom={{ delay: 0.6, rotate: -5, yOffset: -20 }}
-          variants={cardVars}
-          initial="hidden"
-          animate="show"
-          whileHover={{ rotate: 0, y: -40, x: -50, scale: 1.05, zIndex: 50 }}
-          className="shrink-0 group relative z-40 w-[170px] h-[230px] md:w-[220px] md:h-[300px] lg:w-[320px] lg:h-[410px] xl:w-[360px] xl:h-[460px] bg-[#009bf9] rounded-[24px] lg:rounded-[36px] p-5 lg:p-8 flex flex-col justify-between shadow-none origin-bottom-right transition-shadow"
+          {...getCardProps(0, -5, -20, 40, 0.6)}
+          onMouseEnter={() => {
+            handleCardInteraction();
+            setHoverIndex(0);
+          }}
+          onMouseLeave={() => setHoverIndex(null)}
+          className="shrink-0 group cursor-pointer relative w-[170px] h-[230px] md:w-[220px] md:h-[300px] lg:w-[320px] lg:h-[410px] xl:w-[360px] xl:h-[460px] bg-[#009bf9] rounded-[24px] lg:rounded-[36px] p-5 lg:p-8 flex flex-col justify-between shadow-none origin-bottom-right transition-shadow"
         >
-          <h2 className="text-black font-black text-[3.5rem] md:text-[5rem] lg:text-[6.5rem] tracking-tighter leading-[0.9] mt-2 lg:mt-3">
+          <h2 className="text-black font-black text-[3.5rem] md:text-[5rem] lg:text-[6.5rem] tracking-tighter leading-[0.9] mt-2 lg:mt-3 pointer-events-none">
             10M+
           </h2>
-          <div className="flex flex-col w-fit">
+          <div className="flex flex-col w-fit pointer-events-none">
             <h3 className="text-black font-bold text-[15px] md:text-[18px] lg:text-[28px] tracking-[-0.02em] leading-tight mb-2">
               Organische views
             </h3>
@@ -132,14 +179,15 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Card 2: Image */}
+        {/* Card 1: Image */}
         <motion.div
-          custom={{ delay: 0.7, rotate: 6, yOffset: 15 }}
-          variants={cardVars}
-          initial="hidden"
-          animate="show"
-          whileHover={{ rotate: 0, y: -30, x: -20, scale: 1.05, zIndex: 50 }}
-          className="shrink-0 relative z-30 w-[170px] h-[230px] md:w-[220px] md:h-[300px] lg:w-[320px] lg:h-[410px] xl:w-[360px] xl:h-[460px] rounded-[24px] lg:rounded-[36px] overflow-hidden shadow-none origin-bottom-left transition-shadow"
+          {...getCardProps(1, 6, 15, 30, 0.7)}
+          onMouseEnter={() => {
+            handleCardInteraction();
+            setHoverIndex(1);
+          }}
+          onMouseLeave={() => setHoverIndex(null)}
+          className="shrink-0 relative cursor-pointer w-[170px] h-[230px] md:w-[220px] md:h-[300px] lg:w-[320px] lg:h-[410px] xl:w-[360px] xl:h-[460px] rounded-[24px] lg:rounded-[36px] overflow-hidden shadow-none origin-bottom-left transition-shadow"
         >
           <video
             src={heroVideo1}
@@ -147,24 +195,25 @@ const Hero = () => {
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
         </motion.div>
 
-        {/* Card 3: Green */}
+        {/* Card 2: Green */}
         <motion.div
-          custom={{ delay: 0.8, rotate: 4, yOffset: 45 }}
-          variants={cardVars}
-          initial="hidden"
-          animate="show"
-          whileHover={{ rotate: 0, y: -20, x: 20, scale: 1.05, zIndex: 50 }}
-          className="hidden md:flex snap-center shrink-0 group relative z-20 w-[220px] h-[300px] lg:w-[320px] lg:h-[410px] xl:w-[360px] xl:h-[460px] bg-[#2dce89] rounded-[24px] lg:rounded-[36px] p-5 lg:p-8 flex flex-col justify-between shadow-none origin-bottom-right transition-shadow"
+          {...getCardProps(2, 4, 45, 20, 0.8)}
+          onMouseEnter={() => {
+            handleCardInteraction();
+            setHoverIndex(2);
+          }}
+          onMouseLeave={() => setHoverIndex(null)}
+          className="hidden md:flex snap-center shrink-0 cursor-pointer group relative w-[220px] h-[300px] lg:w-[320px] lg:h-[410px] xl:w-[360px] xl:h-[460px] bg-[#2dce89] rounded-[24px] lg:rounded-[36px] p-5 lg:p-8 flex-col justify-between shadow-none origin-bottom-right transition-shadow"
         >
-          <h2 className="text-black font-black text-[3.5rem] md:text-[5rem] lg:text-[6.5rem] tracking-tighter leading-[0.9] mt-2 lg:mt-3">
+          <h2 className="text-black font-black text-[3.5rem] md:text-[5rem] lg:text-[6.5rem] tracking-tighter leading-[0.9] mt-2 lg:mt-3 pointer-events-none">
             30+
           </h2>
-          <div className="flex flex-col w-fit">
+          <div className="flex flex-col w-fit pointer-events-none">
             <h3 className="text-black font-bold text-[15px] md:text-[18px] lg:text-[28px] tracking-[-0.02em] leading-tight mb-2">
               Merken geholpen
             </h3>
@@ -175,14 +224,15 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Card 4: Image with text */}
+        {/* Card 3: Image with text */}
         <motion.div
-          custom={{ delay: 0.9, rotate: -6, yOffset: -5 }}
-          variants={cardVars}
-          initial="hidden"
-          animate="show"
-          whileHover={{ rotate: 0, y: -45, x: 50, scale: 1.05, zIndex: 50 }}
-          className="hidden lg:flex snap-center shrink-0 relative z-10 w-[320px] h-[410px] xl:w-[360px] xl:h-[460px] rounded-[24px] lg:rounded-[36px] overflow-hidden shadow-none origin-bottom-left transition-shadow"
+          {...getCardProps(3, -6, -5, 10, 0.9)}
+          onMouseEnter={() => {
+            handleCardInteraction();
+            setHoverIndex(3);
+          }}
+          onMouseLeave={() => setHoverIndex(null)}
+          className="hidden lg:flex snap-center cursor-pointer shrink-0 relative w-[320px] h-[410px] xl:w-[360px] xl:h-[460px] rounded-[24px] lg:rounded-[36px] overflow-hidden shadow-none origin-bottom-left transition-shadow"
         >
           <video
             src={heroVideo2}
@@ -190,9 +240,9 @@ const Hero = () => {
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none"></div>
         </motion.div>
       </motion.div>
     </main>
