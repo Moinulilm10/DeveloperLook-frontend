@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import PageSkeleton from "./components/Skeletons/PageSkeleton";
 import Layout from "./layouts/Layout";
+import Hero from "./components/Hero";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ function App() {
 
   return (
     <Layout>
-      <h1>hello world</h1>
+       <Hero />
     </Layout>
   );
 }
