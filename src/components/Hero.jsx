@@ -157,9 +157,9 @@ const Hero = () => {
         style={{ x: containerX }}
         className="mt-12 lg:mt-20 flex flex-row justify-center items-center -space-x-6 md:-space-x-10 lg:-space-x-12 relative transition-all duration-300 h-auto md:h-[360px] lg:h-[520px] pb-8"
       >
-        {/* Card 0: Blue (Front-most) */}
+        {/* Card 0: Blue (Now Bottom-most) */}
         <motion.div
-          {...getCardProps(0, -5, -20, 40, 0.6)}
+          {...getCardProps(0, -5, -20, 10, 0.6)}
           onMouseEnter={() => {
             handleCardInteraction();
             setHoverIndex(0);
@@ -183,7 +183,7 @@ const Hero = () => {
 
         {/* Card 1: Image */}
         <motion.div
-          {...getCardProps(1, 6, 15, 30, 0.7)}
+          {...getCardProps(1, 6, 15, 20, 0.7)}
           onMouseEnter={() => {
             handleCardInteraction();
             setHoverIndex(1);
@@ -204,7 +204,7 @@ const Hero = () => {
 
         {/* Card 2: Green */}
         <motion.div
-          {...getCardProps(2, 4, 45, 20, 0.8)}
+          {...getCardProps(2, 4, 45, 30, 0.8)}
           onMouseEnter={() => {
             handleCardInteraction();
             setHoverIndex(2);
@@ -226,9 +226,9 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Card 3: Image with text */}
+        {/* Card 3: Image with text (Now Top-most) */}
         <motion.div
-          {...getCardProps(3, -6, -5, 10, 0.9)}
+          {...getCardProps(3, -6, -5, 40, 0.9)}
           onMouseEnter={() => {
             handleCardInteraction();
             setHoverIndex(3);
