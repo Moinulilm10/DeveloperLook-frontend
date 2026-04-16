@@ -7,6 +7,7 @@ import AboutSection from "./components/AboutSection";
 import ExpertiseSection from "./components/ExpertiseSection";
 import WorkSection from "./components/WorkSection";
 import BrandsSection from "./components/BrandsSection";
+import Footer from "./components/Footer";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -35,6 +36,7 @@ function App() {
       <ExpertiseSection />
       <WorkSection />
       <BrandsSection />
+      <Footer />
     </Layout>
   );
 }
