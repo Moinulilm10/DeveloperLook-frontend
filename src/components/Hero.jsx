@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
-const defaultImage1 = "https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=800&auto=format&fit=crop"; // Car/lifestyle replacement
-const defaultImage2 = "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?q=80&w=800&auto=format&fit=crop"; // Garage replacement
+const defaultImage1 =
+  "https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=800&auto=format&fit=crop"; // Car/lifestyle replacement
+const defaultImage2 =
+  "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?q=80&w=800&auto=format&fit=crop"; // Garage replacement
 
-import heroVideo1 from '../assets/hero-video-1.mp4';
-import heroVideo2 from '../assets/hero-video-2.mp4';
+import heroVideo1 from "../assets/hero-video-1.mp4";
+import heroVideo2 from "../assets/hero-video-2.mp4";
 
 const Hero = () => {
   // Mouse parallax tracking - refined for better sensitivity/smoothness
@@ -31,14 +32,18 @@ const Hero = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.15,
-        delayChildren: 0.2
-      }
-    }
+        delayChildren: 0.2,
+      },
+    },
   };
 
   const itemVars = {
     hidden: { opacity: 0, y: 50 },
-    show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 80, damping: 20 } }
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 80, damping: 20 },
+    },
   };
 
   const cardVars = {
@@ -49,47 +54,53 @@ const Hero = () => {
       y: 0,
       rotate: custom.rotate,
       transition: {
-        type: 'spring',
+        type: "spring",
         stiffness: 60,
         damping: 15,
-        delay: custom.delay
-      }
-    })
+        delay: custom.delay,
+      },
+    }),
   };
 
   return (
-    <main className="max-w-[1700px] mx-auto px-6 lg:px-12 mt-12 lg:mt-32 relative" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+    <main
+      className="max-w-[1700px] mx-auto px-6 lg:px-12 mt-12 lg:mt-32 relative"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
       <motion.div
         variants={containerVars}
         initial="hidden"
         animate="show"
         className="max-w-[1700px]"
       >
-        {/* Main Title - Fixed 2-Line Layout */}
+        {/* Main Title - Responsive 2-Line Layout */}
         <div className="flex flex-col">
           <div className="overflow-hidden">
             <motion.h1
               variants={itemVars}
-              className="text-[2.6rem] sm:text-[5.5rem] lg:text-[7rem] font-bold leading-[1] lg:leading-[0.85] tracking-[-0.04em] text-black"
+              className="text-[2rem] sm:text-[3rem] lg:text-[5.5rem] font-semibold text-black tracking-[-0.05em]"
             >
-              Get Hyped.
+              Get Hyped. Get
             </motion.h1>
           </div>
           <div className="overflow-hidden">
             <motion.h1
               variants={itemVars}
-              className="text-[2.3rem] sm:text-[5.5rem] lg:text-[7rem] font-bold leading-[1.1] lg:leading-[0.85] tracking-[-0.04em] mb-4 lg:mb-8 text-black"
+              className="text-[2rem] sm:text-[3rem] lg:text-[5.5rem] font-semibold leading-[0.95] lg:leading-[0.85] tracking-[-0.05em] mb-2 lg:mb-4 text-black"
             >
-              Get Noticed. <span className="block sm:inline">Get Results.</span>
+              Noticed. <span className="inline-block">Get Results.</span>
             </motion.h1>
           </div>
         </div>
 
         <motion.p
           variants={itemVars}
-          className="text-base lg:text-[32px] font-bold leading-tight max-w-[280px] lg:max-w-3xl mt-4 lg:mt-10 text-black"
+          className="text-lg md:text-2xl lg:text-[24px] font-semibold leading-[1.2] max-w-[300px] md:max-w-xl lg:max-w-3xl mt-3 lg:mt-6 text-black/90"
         >
-          Klaar met gokken op content<br />die niets oplevert?
+          Klaar met gokken op content
+          <br />
+          die niets oplevert?
         </motion.p>
       </motion.div>
 
@@ -98,7 +109,6 @@ const Hero = () => {
         style={{ x: containerX }}
         className="mt-12 lg:mt-24 flex flex-row justify-center items-end -space-x-16 md:-space-x-14 lg:-space-x-12 relative transition-all duration-300"
       >
-
         {/* Card 1: Blue */}
         <motion.div
           custom={{ delay: 0.6, rotate: -4 }}
@@ -108,11 +118,17 @@ const Hero = () => {
           whileHover={{ rotate: 0, y: -30, x: -80, scale: 1.05, zIndex: 50 }}
           className="shrink-0 group relative z-0 w-[190px] h-[260px] md:w-[260px] md:h-[350px] lg:w-[420px] lg:h-[540px] bg-[#0c82fb] rounded-[40px] md:rounded-[48px] p-6 lg:p-12 flex flex-col justify-between shadow-none origin-bottom-right transition-shadow"
         >
-          <h2 className="text-black font-black text-4xl lg:text-9xl tracking-tighter">10M+</h2>
+          <h2 className="text-black font-black text-4xl lg:text-9xl tracking-tighter">
+            10M+
+          </h2>
           <div>
-            <p className="text-black font-bold text-base lg:text-3xl transform group-hover:translate-x-2 transition-transform">Organische views</p>
+            <p className="text-black font-bold text-base lg:text-3xl transform group-hover:translate-x-2 transition-transform">
+              Organische views
+            </p>
             <hr className="border-black/30 my-4" />
-            <p className="text-black text-[11px] lg:text-xl font-semibold opacity-80 leading-tight">Groei door slimme content</p>
+            <p className="text-black text-[11px] lg:text-xl font-semibold opacity-80 leading-tight">
+              Groei door slimme content
+            </p>
           </div>
         </motion.div>
 
@@ -145,11 +161,17 @@ const Hero = () => {
           whileHover={{ rotate: 0, y: -30, x: 40, scale: 1.05, zIndex: 50 }}
           className="hidden md:flex snap-center shrink-0 group relative z-20 w-[260px] h-[350px] lg:w-[420px] lg:h-[540px] bg-[#27ce85] rounded-[48px] p-6 lg:p-12 md:ml-4 lg:ml-2 flex flex-col justify-between shadow-none origin-bottom-right transition-shadow"
         >
-          <h2 className="text-black font-black text-5xl lg:text-9xl tracking-tighter">30+</h2>
+          <h2 className="text-black font-black text-5xl lg:text-9xl tracking-tighter">
+            30+
+          </h2>
           <div>
-            <p className="text-black font-bold text-lg lg:text-3xl transform group-hover:translate-x-2 transition-transform">Merken geholpen</p>
+            <p className="text-black font-bold text-lg lg:text-3xl transform group-hover:translate-x-2 transition-transform">
+              Merken geholpen
+            </p>
             <hr className="border-black/30 my-5" />
-            <p className="text-black text-xs lg:text-xl font-semibold opacity-80">Van start-up tot multinational</p>
+            <p className="text-black text-xs lg:text-xl font-semibold opacity-80">
+              Van start-up tot multinational
+            </p>
           </div>
         </motion.div>
 
@@ -172,8 +194,6 @@ const Hero = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
         </motion.div>
-
-
       </motion.div>
     </main>
   );
