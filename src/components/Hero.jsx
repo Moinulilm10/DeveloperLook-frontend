@@ -47,11 +47,11 @@ const Hero = () => {
   };
 
   const cardVars = {
-    hidden: { opacity: 0, scale: 0.8, y: 100 },
+    hidden: { opacity: 0, scale: 0.8, y: 120 },
     show: (custom) => ({
       opacity: 1,
       scale: 1,
-      y: 0,
+      y: custom.yOffset || 0,
       rotate: custom.rotate,
       transition: {
         type: "spring",
@@ -104,29 +104,29 @@ const Hero = () => {
         </motion.p>
       </motion.div>
 
-      {/* Cards Section - Reduced Overlap & Fine-tuned Layering */}
+      {/* Cards Section - Deck Array Fanned Out */}
       <motion.div
         style={{ x: containerX }}
-        className="mt-12 lg:mt-24 flex flex-row justify-center items-end -space-x-16 md:-space-x-14 lg:-space-x-12 relative transition-all duration-300"
+        className="mt-12 lg:mt-20 flex flex-row justify-center items-center -space-x-6 md:-space-x-10 lg:-space-x-12 relative transition-all duration-300 h-auto md:h-[360px] lg:h-[520px] pb-8"
       >
-        {/* Card 1: Blue */}
+        {/* Card 1: Blue (Front-most) */}
         <motion.div
-          custom={{ delay: 0.6, rotate: -4 }}
+          custom={{ delay: 0.6, rotate: -5, yOffset: -20 }}
           variants={cardVars}
           initial="hidden"
           animate="show"
-          whileHover={{ rotate: 0, y: -30, x: -80, scale: 1.05, zIndex: 50 }}
-          className="shrink-0 group relative z-0 w-[190px] h-[260px] md:w-[260px] md:h-[350px] lg:w-[420px] lg:h-[540px] bg-[#0c82fb] rounded-[40px] md:rounded-[48px] p-6 lg:p-12 flex flex-col justify-between shadow-none origin-bottom-right transition-shadow"
+          whileHover={{ rotate: 0, y: -40, x: -50, scale: 1.05, zIndex: 50 }}
+          className="shrink-0 group relative z-40 w-[170px] h-[230px] md:w-[220px] md:h-[300px] lg:w-[320px] lg:h-[410px] xl:w-[360px] xl:h-[460px] bg-[#009bf9] rounded-[24px] lg:rounded-[36px] p-5 lg:p-8 flex flex-col justify-between shadow-none origin-bottom-right transition-shadow"
         >
-          <h2 className="text-black font-black text-4xl lg:text-9xl tracking-tighter">
+          <h2 className="text-black font-black text-[3.5rem] md:text-[5rem] lg:text-[6.5rem] tracking-tighter leading-[0.9] mt-2 lg:mt-3">
             10M+
           </h2>
-          <div>
-            <p className="text-black font-bold text-base lg:text-3xl transform group-hover:translate-x-2 transition-transform">
+          <div className="flex flex-col w-fit">
+            <h3 className="text-black font-bold text-[15px] md:text-[18px] lg:text-[28px] tracking-[-0.02em] leading-tight mb-2">
               Organische views
-            </p>
-            <hr className="border-black/30 my-4" />
-            <p className="text-black text-[11px] lg:text-xl font-semibold opacity-80 leading-tight">
+            </h3>
+            <div className="w-full h-[2px] bg-[#111] mb-2 lg:mb-3"></div>
+            <p className="text-black text-[10px] md:text-[11px] lg:text-[14px] font-medium opacity-90 leading-tight pr-[5%]">
               Groei door slimme content
             </p>
           </div>
@@ -134,12 +134,12 @@ const Hero = () => {
 
         {/* Card 2: Image */}
         <motion.div
-          custom={{ delay: 0.7, rotate: 4 }}
+          custom={{ delay: 0.7, rotate: 6, yOffset: 15 }}
           variants={cardVars}
           initial="hidden"
           animate="show"
-          whileHover={{ rotate: 0, y: -30, x: -40, scale: 1.05, zIndex: 50 }}
-          className="shrink-0 relative z-10 w-[190px] h-[260px] md:w-[260px] md:h-[350px] lg:w-[420px] lg:h-[540px] rounded-[40px] md:rounded-[48px] overflow-hidden shadow-none origin-bottom-left transition-shadow"
+          whileHover={{ rotate: 0, y: -30, x: -20, scale: 1.05, zIndex: 50 }}
+          className="shrink-0 relative z-30 w-[170px] h-[230px] md:w-[220px] md:h-[300px] lg:w-[320px] lg:h-[410px] xl:w-[360px] xl:h-[460px] rounded-[24px] lg:rounded-[36px] overflow-hidden shadow-none origin-bottom-left transition-shadow"
         >
           <video
             src={heroVideo1}
@@ -152,37 +152,37 @@ const Hero = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
         </motion.div>
 
-        {/* Card 3: Green - Shifted right slightly and layered on top */}
+        {/* Card 3: Green */}
         <motion.div
-          custom={{ delay: 0.8, rotate: 6 }}
+          custom={{ delay: 0.8, rotate: 4, yOffset: 45 }}
           variants={cardVars}
           initial="hidden"
           animate="show"
-          whileHover={{ rotate: 0, y: -30, x: 40, scale: 1.05, zIndex: 50 }}
-          className="hidden md:flex snap-center shrink-0 group relative z-20 w-[260px] h-[350px] lg:w-[420px] lg:h-[540px] bg-[#27ce85] rounded-[48px] p-6 lg:p-12 md:ml-4 lg:ml-2 flex flex-col justify-between shadow-none origin-bottom-right transition-shadow"
+          whileHover={{ rotate: 0, y: -20, x: 20, scale: 1.05, zIndex: 50 }}
+          className="hidden md:flex snap-center shrink-0 group relative z-20 w-[220px] h-[300px] lg:w-[320px] lg:h-[410px] xl:w-[360px] xl:h-[460px] bg-[#2dce89] rounded-[24px] lg:rounded-[36px] p-5 lg:p-8 flex flex-col justify-between shadow-none origin-bottom-right transition-shadow"
         >
-          <h2 className="text-black font-black text-5xl lg:text-9xl tracking-tighter">
+          <h2 className="text-black font-black text-[3.5rem] md:text-[5rem] lg:text-[6.5rem] tracking-tighter leading-[0.9] mt-2 lg:mt-3">
             30+
           </h2>
-          <div>
-            <p className="text-black font-bold text-lg lg:text-3xl transform group-hover:translate-x-2 transition-transform">
+          <div className="flex flex-col w-fit">
+            <h3 className="text-black font-bold text-[15px] md:text-[18px] lg:text-[28px] tracking-[-0.02em] leading-tight mb-2">
               Merken geholpen
-            </p>
-            <hr className="border-black/30 my-5" />
-            <p className="text-black text-xs lg:text-xl font-semibold opacity-80">
+            </h3>
+            <div className="w-full h-[2px] bg-[#111] mb-2 lg:mb-3"></div>
+            <p className="text-black text-[10px] md:text-[11px] lg:text-[14px] font-medium opacity-90 leading-tight pr-[5%]">
               Van start-up tot multinational
             </p>
           </div>
         </motion.div>
 
-        {/* Card 4: Image with text - Pushed further to the right */}
+        {/* Card 4: Image with text */}
         <motion.div
-          custom={{ delay: 0.9, rotate: -3 }}
+          custom={{ delay: 0.9, rotate: -6, yOffset: -5 }}
           variants={cardVars}
           initial="hidden"
           animate="show"
-          whileHover={{ rotate: 0, y: -30, x: 80, scale: 1.05, zIndex: 50 }}
-          className="hidden lg:flex snap-center shrink-0 relative z-10 w-[420px] h-[540px] rounded-[48px] overflow-hidden shadow-none origin-bottom-left transition-shadow lg:ml-2"
+          whileHover={{ rotate: 0, y: -45, x: 50, scale: 1.05, zIndex: 50 }}
+          className="hidden lg:flex snap-center shrink-0 relative z-10 w-[320px] h-[410px] xl:w-[360px] xl:h-[460px] rounded-[24px] lg:rounded-[36px] overflow-hidden shadow-none origin-bottom-left transition-shadow"
         >
           <video
             src={heroVideo2}
