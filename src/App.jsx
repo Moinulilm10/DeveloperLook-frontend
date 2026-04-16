@@ -3,6 +3,7 @@ import "./App.css";
 import PageSkeleton from "./components/Skeletons/PageSkeleton";
 import Layout from "./layouts/Layout";
 import Hero from "./components/Hero";
+import AboutSection from "./components/AboutSection";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -26,7 +27,8 @@ function App() {
 
   return (
     <Layout>
-       <Hero />
+      <Hero />
+      <AboutSection />
     </Layout>
   );
 }
