@@ -4,6 +4,7 @@ import PageSkeleton from "./components/Skeletons/PageSkeleton";
 import Layout from "./layouts/Layout";
 import Hero from "./components/Hero";
 import AboutSection from "./components/AboutSection";
+import ExpertiseSection from "./components/ExpertiseSection";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,7 @@ function App() {
     <Layout>
       <Hero />
       <AboutSection />
+      <ExpertiseSection />
     </Layout>
   );
 }
