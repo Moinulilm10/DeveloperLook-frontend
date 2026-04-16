@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { BsFire } from 'react-icons/bs';
 import { FaLinkedinIn, FaTiktok, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { HiEnvelope } from 'react-icons/hi2';
@@ -13,6 +13,9 @@ import trail3 from '../assets/mouse-move-3.svg';
 const TRAIL_IMAGES = [trail1, trail2, trail3];
 
 const Footer = () => {
+  const { scrollY } = useScroll();
+  const rotateScroll = useTransform(scrollY, (y) => y * 0.4);
+
   const [trail, setTrail] = useState([]);
   const footerRef = useRef(null);
   const lastPos = useRef({ x: 0, y: 0 });
@@ -370,8 +373,7 @@ const Footer = () => {
 
           {/* Floating Pink Badge - Moved outside the overflow-hidden container to prevent clipping */}
           <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+            style={{ rotate: rotateScroll }}
             className="absolute top-[-30px] md:top-[-50px] right-[10%] lg:right-[8%] w-24 h-24 md:w-32 md:h-32 rounded-full bg-[#f8b2f1] flex items-center justify-center shadow-md cursor-pointer z-[1000]"
           >
             {/* Circular Text via SVG Path */}
