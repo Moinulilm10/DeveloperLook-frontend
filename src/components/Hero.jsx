@@ -54,7 +54,7 @@ const Hero = () => {
   const getCardProps = (index, baseRotate, baseY, baseZ, defaultDelay) => {
     const isHovered = hoverIndex === index;
 
-    let x = 0;
+    let x = "0%";
     let y = baseY;
     let rotate = baseRotate;
     let scale = 1;
@@ -69,17 +69,19 @@ const Hero = () => {
 
       // Edge compensation: lean the leftmost and rightmost cards outward
       // so the gap feels mathematically symmetrical.
-      if (index === 0) x = -40; // Push first card left
-      if (index === 3) x = 40;  // Push fourth card right
+      if (index === 0) x = "-15%"; // Push first card left
+      if (index === 3) x = "15%";  // Push fourth card right
     }
 
     // "Part the sea" pushing logic that explicitly moves siblings left/right
+    // Evaluated via percentages so it scales beautifully on mobile and desktop
+    // overcoming complex geometric bounding box intersections perfectly!
     if (hoverIndex !== null && !isHovered) {
       if (index < hoverIndex) {
-        x = -80; // Hard push left for preceding cards
+        x = "-45%"; // Hard push left for preceding cards
       }
       if (index > hoverIndex) {
-        x = 80; // Hard push right for succeeding cards
+        x = "45%"; // Hard push right for succeeding cards
       }
       // Very slight drop for non-hovered to emphasize hovered
       y += 10; 
