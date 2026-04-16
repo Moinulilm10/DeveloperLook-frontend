@@ -5,6 +5,7 @@ import Layout from "./layouts/Layout";
 import Hero from "./components/Hero";
 import AboutSection from "./components/AboutSection";
 import ExpertiseSection from "./components/ExpertiseSection";
+import WorkSection from "./components/WorkSection";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -31,6 +32,7 @@ function App() {
       <Hero />
       <AboutSection />
       <ExpertiseSection />
+      <WorkSection />
     </Layout>
   );
 }
